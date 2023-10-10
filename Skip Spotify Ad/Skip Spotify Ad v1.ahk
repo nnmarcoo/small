@@ -1,6 +1,6 @@
 ﻿#NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
-SetWorkingDir, C:\Users\marco\AppData\Roaming\Spotify  ; Ensures a consistent starting directory.
+SetWorkingDir, C:\Users\<USER>\AppData\Roaming\Spotify  ; Ensures a consistent starting directory.
 
 processName := "spotify.exe"
 Loop {
