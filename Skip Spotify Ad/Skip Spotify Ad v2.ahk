@@ -2,26 +2,24 @@
 #SingleInstance Force
 SetWorkingDir "C:\Users\marco\AppData\Roaming\Spotify"
 spotify := "spotify.exe"
+nosong := "Spotify Free"
 delay := 500 ; may need to change on slower PCs
 
 Loop {
     if (PID := ProcessExist(spotify)) {
         try {
             title := WinGetTitle("ahk_pid" PID)
-            if (!InStr(title, " - ") && !InStr(title, "Spotify Free")) { 
+            if (!InStr(title, " - ") && !InStr(title, nosong)) { 
                 WinClose(title)
                 WinWaitClose(title)
                 Sleep delay
                 Run spotify
 
-                WinWait("Spotify Free")
+                WinWait(nosong)
 
-                PID := ProcessExist(spotify)
-                title := WinGetTitle("ahk_pid" PID)
-
-                ControlSend("^{NumpadRight}", , title)
+                ControlSend("^{NumpadRight}", , nosong)
                 Sleep delay
-                ControlSend("{Space}", , title)
+                ControlSend("{Space}", , nosong)
                 Sleep delay * 8
             }
         }
