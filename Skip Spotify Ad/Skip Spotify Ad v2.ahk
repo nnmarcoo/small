@@ -1,6 +1,6 @@
 ﻿#Requires AutoHotkey v2.0
 #SingleInstance Force
-SetWorkingDir "C:\Users\marco\AppData\Roaming\Spotify"
+SetWorkingDir "C:\Users\<USER>\AppData\Roaming\Spotify"
 spotify := "spotify.exe"
 nosong := "Spotify Free"
 delay := 500 ; may need to change on slower PCs
