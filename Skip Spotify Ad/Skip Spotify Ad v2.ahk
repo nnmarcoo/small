@@ -5,6 +5,8 @@ spotify := "spotify.exe"
 nosong := "Spotify Free"
 delay := 500 ; may need to change on slower PCs
 
+; TODO: Tab back into the original active window
+
 Loop {
     if (PID := ProcessExist(spotify)) {
         try {
