@@ -5,11 +5,10 @@ spotify := "spotify.exe"
 nosong := "Spotify Free"
 delay := 500 ; may need to change on slower PCs
 
-; TODO: Tab back into the original active window
-
 Loop {
     if (PID := ProcessExist(spotify)) {
         try {
+            active := WinExist("A")
             title := WinGetTitle("ahk_pid" PID)
             if (!InStr(title, " - ") && !InStr(title, nosong)) { 
                 WinClose(title)
@@ -22,6 +21,7 @@ Loop {
                 ControlSend("^{NumpadRight}", , nosong)
                 Sleep delay
                 ControlSend("{Space}", , nosong)
+                WinActivate(active)
                 Sleep delay * 8
             }
         }
