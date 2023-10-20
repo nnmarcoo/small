@@ -18,9 +18,12 @@ Loop {
 
                 WinWait(nosong)
 
+                WinMoveBottom(nosong)
+
                 ControlSend("^{NumpadRight}", , nosong)
                 Sleep delay
                 ControlSend("{Space}", , nosong)
+                Sleep delay / 2
                 WinActivate(active)
                 Sleep delay * 8
             }
