@@ -5,6 +5,8 @@ spotify := "spotify.exe"
 nosong := "Spotify Free"
 delay := 500 ; may need to change on slower PCs
 
+; TODO: fix possible error where spotify doesn't respond
+
 Loop {
     if (PID := ProcessExist(spotify)) {
         try {
