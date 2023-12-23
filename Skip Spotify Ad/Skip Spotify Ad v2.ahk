@@ -6,6 +6,7 @@ nosong := "Spotify Free"
 delay := 500 ; may need to change on slower PCs
 
 ; TODO: fix possible error where spotify doesn't respond
+; TODO: fix error where user cannot go to spotify tabs besides song browser
 
 Loop {
     if (PID := ProcessExist(spotify)) {
