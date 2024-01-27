@@ -2,24 +2,24 @@
 
 #define NUM_NODES 4
 
-void printAdjacencyMatrix(short adjMatrix[NUM_NODES][NUM_NODES]) {
-    for (int i = 0; i < NUM_NODES; ++i) {
-        for (int j = 0; j < NUM_NODES; ++j) {
-            printf("%d ", adjMatrix[i][j]);
+void print(short adjmat[NUM_NODES][NUM_NODES]) {
+    for (int x = 0; x < NUM_NODES; x++) {
+        for (int y = 0; y < NUM_NODES; y++) {
+            printf("%d ", adjmat[x][y]);
         }
         printf("\n");
     }
 }
 
 int main() {
-    short adjacencyMatrix[NUM_NODES][NUM_NODES] = {
+    short adjmat[NUM_NODES][NUM_NODES] = {
         {0, 1, 0, 1},
         {0, 0, 1, 0},
         {0, 0, 0, 1},
         {1, 0, 0, 0}
     };
 
-    printAdjacencyMatrix(adjacencyMatrix);
+    print(adjmat);
 
     return 0;
 }
