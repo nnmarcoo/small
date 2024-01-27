@@ -5,6 +5,7 @@
 
 void dfs(short adjmat[NUM_NODES][NUM_NODES], short node, short visited[NUM_NODES][NUM_NODES]);
 void print(short adjmat[NUM_NODES][NUM_NODES]);
+short compare(short a[NUM_NODES][NUM_NODES], short b[NUM_NODES][NUM_NODES]);
 
 
 int main() {
@@ -20,6 +21,8 @@ int main() {
     short visited[NUM_NODES][NUM_NODES] = {0};
 
     dfs(adjmat, 2, visited);
+
+    printf("\n%d", compare(adjmat, visited));
 
     return 0;
 }
@@ -37,7 +40,6 @@ void dfs(short adjmat[NUM_NODES][NUM_NODES], short n, short visited[NUM_NODES][N
 }
 
 void print(short mat[NUM_NODES][NUM_NODES]) {
-
     printf("    ");
     for (int i = 0; i < NUM_NODES; i++) { printf("%d ", i); } 
     printf("\n   ");
@@ -51,4 +53,14 @@ void print(short mat[NUM_NODES][NUM_NODES]) {
         }
         printf("\n");
     }
+}
+
+short compare(short a[NUM_NODES][NUM_NODES], short b[NUM_NODES][NUM_NODES]) {
+    for (int x = 0; x < NUM_NODES; x++) {
+        for (int y = 0; y < NUM_NODES; y++) {
+            if (a[x][y] != b[x][y])
+                return 0;
+        }
+    }
+    return 1;
 }
