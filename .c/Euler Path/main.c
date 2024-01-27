@@ -1,10 +1,9 @@
 #include <stdio.h>
-#include <stdbool.h>
 
 #define NUM_NODES 6
 #define MAX_NODES 15
 
-void dfs(short adjmat[NUM_NODES][NUM_NODES], int node, bool visited[NUM_NODES]);
+void dfs(short adjmat[NUM_NODES][NUM_NODES], short node, short visited[NUM_NODES][NUM_NODES]);
 void print(short adjmat[NUM_NODES][NUM_NODES]);
 
 
@@ -18,21 +17,21 @@ int main() {
     /*4*/{1, 1, 0, 1, 0, 1},
     /*5*/{1, 1, 1, 0, 1, 0}};
 
-    bool visited[NUM_NODES] = {false};
+    short visited[NUM_NODES][NUM_NODES] = {0};
 
-    dfs(adjmat, 0, visited);
+    dfs(adjmat, 2, visited);
 
     return 0;
 }
 
-void dfs(short adjmat[NUM_NODES][NUM_NODES], int node, bool visited[NUM_NODES]) {
-    printf("%d ", node);
+void dfs(short adjmat[NUM_NODES][NUM_NODES], short n, short visited[NUM_NODES][NUM_NODES]) {
+    printf("%d ", n+1);
 
-    visited[node] = true;
-
-    for (int i = 0; i < NUM_NODES; i++) {
-        if (adjmat[node][i] == 1 && !visited[i]) {
-            dfs(adjmat, i, visited);
+    for (int x = 0; x < NUM_NODES; x++) {
+        if (adjmat[n][x] && !(visited[n][x] + visited[x][n])) {
+            visited[n][x] = 1;
+            visited[x][n] = 1;
+            dfs(adjmat, x, visited);
         }
     }
 }
