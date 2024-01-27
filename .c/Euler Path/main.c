@@ -1,4 +1,8 @@
 #include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+// TODO: Take arguments like the adjmat?
 
 #define NUM_NODES 6
 #define MAX_NODES 15
@@ -7,21 +11,16 @@
 void dfs(short adjmat[NUM_NODES][NUM_NODES], short node, short visited[NUM_NODES][NUM_NODES]);
 void print(short adjmat[NUM_NODES][NUM_NODES]);
 short compare(short a[NUM_NODES][NUM_NODES], short b[NUM_NODES][NUM_NODES]);
+void readin(char *filepath, short adjmat[NUM_NODES][NUM_NODES]);
 
 
 int main() {
-    short adjmat[NUM_NODES][NUM_NODES] = {
-        /*0  1  2  3  4  5*/
-    /*0*/{0, 1, 1, 0, 1, 1},
-    /*1*/{1, 0, 1, 0, 1, 1},
-    /*2*/{1, 1, 0, 1, 0, 1},
-    /*3*/{0, 0, 1, 0, 1, 0},
-    /*4*/{1, 1, 0, 1, 0, 1},
-    /*5*/{1, 1, 1, 0, 1, 0}};
-
+    short adjmat[NUM_NODES][NUM_NODES] = {0};
     short visited[NUM_NODES][NUM_NODES] = {0};
 
-    dfs(adjmat, 2, visited);
+    readin("g_test.txt", adjmat);
+
+    print(adjmat);
 
     return 0;
 }
@@ -36,6 +35,31 @@ void dfs(short adjmat[NUM_NODES][NUM_NODES], short n, short visited[NUM_NODES][N
             dfs(adjmat, x, visited);
         }
     }
+}
+
+void readin(char *filepath, short adjmat[NUM_NODES][NUM_NODES]) {
+    FILE *file = fopen(filepath, "r");
+    if (file == NULL) {
+        perror("Error opening file");
+        return;
+    }
+
+    char ch;
+    char buffer[NUM_NODES];
+    short node = 0;
+    memset(buffer, 0, sizeof(buffer));
+
+    while ((ch = fgetc(file)) != EOF) {
+        if (ch != '\n' && ch != ' ') 
+            sprintf(buffer, "%s%c", buffer, ch); 
+        else {
+            adjmat[node][atoi(buffer)] = 1;
+            memset(buffer, 0, sizeof(buffer));
+        } 
+        if (ch == '\n')
+            node++;
+    }
+    fclose(file);
 }
 
 void print(short mat[NUM_NODES][NUM_NODES]) {
