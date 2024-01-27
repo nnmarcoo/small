@@ -1,1 +1,1 @@
-Occasionally I will make an AHK script to achieve something small. Here they are.
+Occasionally I need to achieve something small. Here are some of them.
