@@ -2,6 +2,7 @@
 
 #define NUM_NODES 6
 #define MAX_NODES 15
+#define MAX_EDGES 125
 
 void dfs(short adjmat[NUM_NODES][NUM_NODES], short node, short visited[NUM_NODES][NUM_NODES]);
 void print(short adjmat[NUM_NODES][NUM_NODES]);
@@ -21,8 +22,6 @@ int main() {
     short visited[NUM_NODES][NUM_NODES] = {0};
 
     dfs(adjmat, 2, visited);
-
-    printf("\n%d", compare(adjmat, visited));
 
     return 0;
 }
