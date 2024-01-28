@@ -5,7 +5,7 @@
 // TODO: Take arguments like the adjmat?
 
 #define NUM_NODES 69
-#define MAX_EDGES 125
+#define MAX_EDGES 10
 
 void dfs(short adjmat[NUM_NODES][NUM_NODES], short visited[NUM_NODES][NUM_NODES], short n, short d);
 void print(short adjmat[NUM_NODES][NUM_NODES]);
@@ -20,7 +20,7 @@ int main() {
 
     readin("g_big.txt", adjmat);
 
-    dfs(adjmat, visited, 1, 2);
+    dfs(adjmat, visited, 1, MAX_EDGES);
 
 
 
@@ -29,16 +29,17 @@ int main() {
 
 void dfs(short adjmat[NUM_NODES][NUM_NODES], short visited[NUM_NODES][NUM_NODES], short n, short d) {
     printf("%d ", n);
-
-
+    
     for (int x = 0; x < NUM_NODES; x++) {
-        if (adjmat[x][n] && !visited[x][n] && !visited[n][x]) {
-            visited[n][x] += 1;
-            visited[x][n] += 1;
-            if (d < 1) break;
-            dfs(adjmat, visited, x, --d);
+        if (adjmat[n][x] && !visited[n][x]) {
+            d--; if (!d) break;
             
+    
+            visited[x][n], visited[n][x] = 1;
+            dfs(adjmat, visited, x, d);
+            printf("\n");
         }
+        d = MAX_EDGES;
     }
 }
 
