@@ -2,7 +2,7 @@
 Gui,+AlwaysOnTop
 Gui, Add, Edit, x12 y10 w326 h40 vpEdit,
 Gui, Add, Text, x12 y50 w320 h80 vpText
-Gui, Add, Edit, x12 y130 w326 h130, This area is a notepad!`n`nLC-3 Instruction Converter`nmade by Marco Todorov`nVersion 1.0.2
+Gui, Add, Edit, x12 y130 w326 h130, This area is a notepad!`n`nLC-3 Instruction Converter`nMade by Marco Todorov`n
 Gui, Show, x127 y87 h275 w350, LC-3 Instruction Converter 1.0.2
 SetTimer, check, 250
 Return
