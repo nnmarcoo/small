@@ -5,9 +5,9 @@
 // TODO: Take arguments like the adjmat?
 
 #define NUM_NODES 69
-#define MAX_EDGES 10
+#define MAX_EDGES 100
 
-void dfs(short adjmat[NUM_NODES][NUM_NODES], short visited[NUM_NODES][NUM_NODES], short n, short d);
+void dfs(short adjmat[NUM_NODES][NUM_NODES], short visited[NUM_NODES][NUM_NODES], short n);
 void print(short adjmat[NUM_NODES][NUM_NODES]);
 short compare(short a[NUM_NODES][NUM_NODES], short b[NUM_NODES][NUM_NODES]);
 void readin(char *filepath, short adjmat[NUM_NODES][NUM_NODES]);
@@ -20,26 +20,24 @@ int main() {
 
     readin("g_big.txt", adjmat);
 
-    dfs(adjmat, visited, 1, MAX_EDGES);
+    print(adjmat);
 
-
+    //dfs(adjmat, visited, 1);
 
     return 0;
 }
 
-void dfs(short adjmat[NUM_NODES][NUM_NODES], short visited[NUM_NODES][NUM_NODES], short n, short d) {
-    printf("%d ", n);
+void dfs(short adjmat[NUM_NODES][NUM_NODES], short visited[NUM_NODES][NUM_NODES], short n) {
     
     for (int x = 0; x < NUM_NODES; x++) {
-        if (adjmat[n][x] && !visited[n][x]) {
-            d--; if (!d) break;
+        if (adjmat[n][x] && !visited[n][x] && !visited[x][n]) {
             
-    
-            visited[x][n], visited[n][x] = 1;
-            dfs(adjmat, visited, x, d);
-            printf("\n");
+            visited[x][n] = 1;
+            visited[n][x] = 1;
+            dfs(adjmat, visited, x);
+            visited[x][n] = 0;
+            visited[n][x] = 0;
         }
-        d = MAX_EDGES;
     }
 }
 
@@ -70,14 +68,17 @@ void readin(char *filepath, short adjmat[NUM_NODES][NUM_NODES]) {
 
 void print(short mat[NUM_NODES][NUM_NODES]) {
     printf("    ");
-    for (int i = 0; i < NUM_NODES; i++) { if (i < 10) printf(" "); printf("%d ", i); } 
-    printf("\n   ");
-    for (int i = 0; i < NUM_NODES*2; i++) { printf("-"); } 
-    printf("\n");
+    for (int i = 0; i < NUM_NODES; i++) { 
+        if (i < 10) printf(" "); printf("%d ", i); 
+    } 
+    printf("\n\n");
 
     for (int x = 0; x < NUM_NODES; x++) {
-        if (x < 10) printf(" ");
-        printf("%d | ", x);
+        if (x < 10)
+            printf(" ");
+
+        printf("%d   ", x);
+
         for (int y = 0; y < NUM_NODES; y++) {
             printf("%d  ", mat[x][y]);
         }
