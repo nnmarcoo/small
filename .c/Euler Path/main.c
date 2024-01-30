@@ -2,51 +2,54 @@
 #include <string.h>
 #include <stdlib.h>
 
-// TODO: Take arguments like the adjmat?
-
 #define NUM_NODES 69
 #define STACK_SIZE 150
 
-void findpath(short adjmat[NUM_NODES][NUM_NODES], short visited[NUM_NODES][NUM_NODES], short n, int stack[], int *top);
+void findpath(short adjmat[NUM_NODES][NUM_NODES], short visited[NUM_NODES][NUM_NODES], short n, short stack[], short *top, short *longest);
 void printmat(short adjmat[NUM_NODES][NUM_NODES]);
-void printstack(int stack[], int top);
-int peek(int stack[], int top);
-void pop(int *top);
-void push(int stack[], int *top, int value);
+void printstack(short stack[], short top);
+short peek(short stack[], short top);
+void pop(short *top);
+void push(short stack[], short *top, short value);
 short compare(short a[NUM_NODES][NUM_NODES], short b[NUM_NODES][NUM_NODES]);
 void readin(char *filepath, short adjmat[NUM_NODES][NUM_NODES]);
 void printneighbors(short adjmat[NUM_NODES][NUM_NODES], short n);
 
 
-int main() {
+short main() {
     short adjmat[NUM_NODES][NUM_NODES] = {0};
     short visited[NUM_NODES][NUM_NODES] = {0};
 
     readin("g_big.txt", adjmat);
 
-    int stack[STACK_SIZE];
-    int topIndex = -1;
+    short stack[STACK_SIZE];
+    short topIndex = -1;
+    short longest = -1;
     
-    findpath(adjmat, visited, 1, stack, &topIndex);
+    findpath(adjmat, visited, 1, stack, &topIndex, &longest);
 
     return 0;
 }
 
-void findpath(short adjmat[NUM_NODES][NUM_NODES], short visited[NUM_NODES][NUM_NODES], short n, int stack[], int *top) {
+void findpath(short adjmat[NUM_NODES][NUM_NODES], short visited[NUM_NODES][NUM_NODES], short n, short stack[], short *top, short *longest) {
     push(stack, top, n);
-    printstack(stack, *top);
+    if (*top > *longest) {
+        *longest = *top;
+        printf("%d: ", *top);
+        printstack(stack, *top);
+    }
     
-    for (int x = 0; x < NUM_NODES; x++) {
+    for (short x = 0; x < NUM_NODES; x++) {
         if (adjmat[n][x] && !visited[n][x] && !visited[x][n]) {
             visited[x][n] = visited[n][x] = 1;
-            findpath(adjmat, visited, x, stack, top);
+            findpath(adjmat, visited, x, stack, top, longest);
             visited[x][n] = visited[n][x] = 0;
         }
     }
     pop(top);
 }
 
-int peek(int stack[], int top) {
+short peek(short stack[], short top) {
     if (top > -1) 
         return stack[top];
     return -1;
@@ -79,55 +82,55 @@ void readin(char *filepath, short adjmat[NUM_NODES][NUM_NODES]) {
 
 void printmat(short mat[NUM_NODES][NUM_NODES]) {
     printf("   ");
-    for (int i = 0; i < NUM_NODES; i++) { 
+    for (short i = 0; i < NUM_NODES; i++) { 
         if (i < 10) printf(" "); printf("%d ", i); 
     } 
     printf("\n");
 
-    for (int x = 0; x < NUM_NODES; x++) {
+    for (short x = 0; x < NUM_NODES; x++) {
         if (x < 10)
             printf(" ");
 
         printf("%d  ", x);
 
-        for (int y = 0; y < NUM_NODES; y++) {
+        for (short y = 0; y < NUM_NODES; y++) {
             printf("%c  ", mat[x][y] ? '0' : '-');
         }
         printf("\n");
     }
     printf("   ");
-    for (int i = 0; i < NUM_NODES; i++) { 
+    for (short i = 0; i < NUM_NODES; i++) { 
         if (i < 10) printf(" "); printf("%d ", i); 
     }
     printf("\n");
 }
 
-void printstack(int stack[], int top) {
-    for (int i = 0; i <= top; i++) 
+void printstack(short stack[], short top) {
+    for (short i = 0; i <= top; i++)
         printf("%d ", stack[i]);
     printf("\n");
 }
 
-void pop(int *top) {
+void pop(short *top) {
     if (*top > -1) 
         (*top)--; 
 }
 
-void push(int stack[], int *top, int value) {
+void push(short stack[], short *top, short value) {
     if (*top < STACK_SIZE - 1) 
         stack[++(*top)] = value;
 }
 
 void printneighbors(short adjmat[NUM_NODES][NUM_NODES], short n) {
-    for (int x = 0; x < NUM_NODES; x++)
+    for (short x = 0; x < NUM_NODES; x++)
         if (adjmat[n][x])
             printf("%d ", x);
     printf("\n");
 }
 
 short compare(short a[NUM_NODES][NUM_NODES], short b[NUM_NODES][NUM_NODES]) {
-    for (int x = 0; x < NUM_NODES; x++) {
-        for (int y = 0; y < NUM_NODES; y++) {
+    for (short x = 0; x < NUM_NODES; x++) {
+        for (short y = 0; y < NUM_NODES; y++) {
             if (a[x][y] != b[x][y])
                 return 0;
         }
