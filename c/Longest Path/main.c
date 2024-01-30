@@ -16,7 +16,7 @@ short peek(short stack[], short top);
 void pop(short *top);
 
 
-short main() {
+int main() {
     short adjmat[NUM_NODES][NUM_NODES] = {0};
     short visited[NUM_NODES][NUM_NODES] = {0};
 
