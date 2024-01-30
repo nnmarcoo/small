@@ -4,7 +4,7 @@
 
 // TODO: Take arguments like the adjmat?
 
-#define NUM_NODES 6
+#define NUM_NODES 69
 #define STACK_SIZE 150
 
 void findpath(short adjmat[NUM_NODES][NUM_NODES], short visited[NUM_NODES][NUM_NODES], short n, int stack[], int *top);
@@ -22,7 +22,7 @@ int main() {
     short adjmat[NUM_NODES][NUM_NODES] = {0};
     short visited[NUM_NODES][NUM_NODES] = {0};
 
-    readin("g_test.txt", adjmat);
+    readin("g_big.txt", adjmat);
 
     int stack[STACK_SIZE];
     int topIndex = -1;
