@@ -3,17 +3,17 @@
 #include <stdlib.h>
 
 #define NUM_NODES 69
-#define STACK_SIZE 150
+#define STACK_SIZE 100
 
 void findpath(short adjmat[NUM_NODES][NUM_NODES], short visited[NUM_NODES][NUM_NODES], short n, short stack[], short *top, short *longest);
+short compare(short a[NUM_NODES][NUM_NODES], short b[NUM_NODES][NUM_NODES]);
+void printneighbors(short adjmat[NUM_NODES][NUM_NODES], short n);
+void readin(char *filepath, short adjmat[NUM_NODES][NUM_NODES]);
 void printmat(short adjmat[NUM_NODES][NUM_NODES]);
+void push(short stack[], short *top, short value);
 void printstack(short stack[], short top);
 short peek(short stack[], short top);
 void pop(short *top);
-void push(short stack[], short *top, short value);
-short compare(short a[NUM_NODES][NUM_NODES], short b[NUM_NODES][NUM_NODES]);
-void readin(char *filepath, short adjmat[NUM_NODES][NUM_NODES]);
-void printneighbors(short adjmat[NUM_NODES][NUM_NODES], short n);
 
 
 short main() {
