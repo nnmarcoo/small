@@ -4,11 +4,15 @@
 
 // TODO: Take arguments like the adjmat?
 
-#define NUM_NODES 69
-#define MAX_EDGES 100
+#define NUM_NODES 6
+#define STACK_SIZE 150
 
-void dfs(short adjmat[NUM_NODES][NUM_NODES], short visited[NUM_NODES][NUM_NODES], short n);
-void print(short adjmat[NUM_NODES][NUM_NODES]);
+void findpath(short adjmat[NUM_NODES][NUM_NODES], short visited[NUM_NODES][NUM_NODES], short n, int stack[], int *top);
+void printmat(short adjmat[NUM_NODES][NUM_NODES]);
+void printstack(int stack[], int top);
+int peek(int stack[], int top);
+void pop(int *top);
+void push(int stack[], int *top, int value);
 short compare(short a[NUM_NODES][NUM_NODES], short b[NUM_NODES][NUM_NODES]);
 void readin(char *filepath, short adjmat[NUM_NODES][NUM_NODES]);
 void printneighbors(short adjmat[NUM_NODES][NUM_NODES], short n);
@@ -18,27 +22,34 @@ int main() {
     short adjmat[NUM_NODES][NUM_NODES] = {0};
     short visited[NUM_NODES][NUM_NODES] = {0};
 
-    readin("g_big.txt", adjmat);
+    readin("g_test.txt", adjmat);
 
-    print(adjmat);
-
-    //dfs(adjmat, visited, 1);
+    int stack[STACK_SIZE];
+    int topIndex = -1;
+    
+    findpath(adjmat, visited, 1, stack, &topIndex);
 
     return 0;
 }
 
-void dfs(short adjmat[NUM_NODES][NUM_NODES], short visited[NUM_NODES][NUM_NODES], short n) {
+void findpath(short adjmat[NUM_NODES][NUM_NODES], short visited[NUM_NODES][NUM_NODES], short n, int stack[], int *top) {
+    push(stack, top, n);
+    printstack(stack, *top);
     
     for (int x = 0; x < NUM_NODES; x++) {
         if (adjmat[n][x] && !visited[n][x] && !visited[x][n]) {
-            
-            visited[x][n] = 1;
-            visited[n][x] = 1;
-            dfs(adjmat, visited, x);
-            visited[x][n] = 0;
-            visited[n][x] = 0;
+            visited[x][n] = visited[n][x] = 1;
+            findpath(adjmat, visited, x, stack, top);
+            visited[x][n] = visited[n][x] = 0;
         }
     }
+    pop(top);
+}
+
+int peek(int stack[], int top) {
+    if (top > -1) 
+        return stack[top];
+    return -1;
 }
 
 void readin(char *filepath, short adjmat[NUM_NODES][NUM_NODES]) {
@@ -66,24 +77,45 @@ void readin(char *filepath, short adjmat[NUM_NODES][NUM_NODES]) {
     fclose(file);
 }
 
-void print(short mat[NUM_NODES][NUM_NODES]) {
-    printf("    ");
+void printmat(short mat[NUM_NODES][NUM_NODES]) {
+    printf("   ");
     for (int i = 0; i < NUM_NODES; i++) { 
         if (i < 10) printf(" "); printf("%d ", i); 
     } 
-    printf("\n\n");
+    printf("\n");
 
     for (int x = 0; x < NUM_NODES; x++) {
         if (x < 10)
             printf(" ");
 
-        printf("%d   ", x);
+        printf("%d  ", x);
 
         for (int y = 0; y < NUM_NODES; y++) {
-            printf("%d  ", mat[x][y]);
+            printf("%c  ", mat[x][y] ? '0' : '-');
         }
         printf("\n");
     }
+    printf("   ");
+    for (int i = 0; i < NUM_NODES; i++) { 
+        if (i < 10) printf(" "); printf("%d ", i); 
+    }
+    printf("\n");
+}
+
+void printstack(int stack[], int top) {
+    for (int i = 0; i <= top; i++) 
+        printf("%d ", stack[i]);
+    printf("\n");
+}
+
+void pop(int *top) {
+    if (*top > -1) 
+        (*top)--; 
+}
+
+void push(int stack[], int *top, int value) {
+    if (*top < STACK_SIZE - 1) 
+        stack[++(*top)] = value;
 }
 
 void printneighbors(short adjmat[NUM_NODES][NUM_NODES], short n) {
