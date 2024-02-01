@@ -6,7 +6,7 @@
 #define STACK_SIZE 100
 #define MAX_REPEATS 2
 
-void findpath(short adjmat[NUM_NODES][NUM_NODES], short visited[NUM_NODES][NUM_NODES], short n, short stack[], short *top, short *longest, short repeats);
+void findpath(short adjmat[NUM_NODES][NUM_NODES], short visited[NUM_NODES][NUM_NODES], short n, short stack[], short *top, short *longest, short repeats, short previous);
 short compare(short a[NUM_NODES][NUM_NODES], short b[NUM_NODES][NUM_NODES]);
 void printneighbors(short adjmat[NUM_NODES][NUM_NODES], short n);
 void readin(char *filepath, short adjmat[NUM_NODES][NUM_NODES]);
@@ -26,13 +26,14 @@ int main() {
     short stack[STACK_SIZE];
     short topIndex = -1;
     short longest = -1;
+    short startnode = 1;
     
-    findpath(adjmat, visited, 1, stack, &topIndex, &longest, MAX_REPEATS);
+    findpath(adjmat, visited, startnode, stack, &topIndex, &longest, MAX_REPEATS, startnode);
 
     return 0;
 }
 
-void findpath(short adjmat[NUM_NODES][NUM_NODES], short visited[NUM_NODES][NUM_NODES], short n, short stack[], short *top, short *longest, short repeats) {
+void findpath(short adjmat[NUM_NODES][NUM_NODES], short visited[NUM_NODES][NUM_NODES], short n, short stack[], short *top, short *longest, short repeats,  short previous) {
     push(stack, top, n);
     if (*top > *longest) {
         *longest = *top;
@@ -41,10 +42,10 @@ void findpath(short adjmat[NUM_NODES][NUM_NODES], short visited[NUM_NODES][NUM_N
     }
     
     for (short x = 0; x < NUM_NODES; x++) {
-        if (adjmat[n][x] && (!(visited[n][x] && visited[x][n]) || repeats > 0)) {
+        if (adjmat[n][x] && (!(visited[n][x] && visited[x][n]) || repeats > 0) && x != previous) {
             if (visited[n][x] && visited[x][n]) repeats--;
             visited[x][n] = visited[n][x] = 1;
-            findpath(adjmat, visited, x, stack, top, longest, repeats);
+            findpath(adjmat, visited, x, stack, top, longest, repeats, n);
             visited[x][n] = visited[n][x] = 0;
         }
     }
