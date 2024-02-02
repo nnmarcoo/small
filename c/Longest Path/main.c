@@ -6,6 +6,8 @@
 #define STACK_SIZE 110
 #define MAX_REPEATS 4
 
+//TODO: prune explored paths
+
 void findpath(short adjmat[NUM_NODES][NUM_NODES], short visited[NUM_NODES][NUM_NODES], short n, short stack[], short *top, short *longest, short repeats, short previous);
 short compare(short a[NUM_NODES][NUM_NODES], short b[NUM_NODES][NUM_NODES]);
 void printneighbors(short adjmat[NUM_NODES][NUM_NODES], short n);
