@@ -6,7 +6,9 @@
 #define STACK_SIZE 110
 #define MAX_REPEATS 0
 
-void findpath(short adjmat[NUM_NODES][NUM_NODES], short visited[NUM_NODES][NUM_NODES], short n, short stack[], short *top, short *longest, short repeats, short previous, short pruned[]);
+void findpath(short adjmat[NUM_NODES][NUM_NODES], 
+              short visited[NUM_NODES][NUM_NODES], 
+              short n, short stack[], short *top, short *longest, short repeats, short previous);
 short compare(short a[NUM_NODES][NUM_NODES], short b[NUM_NODES][NUM_NODES]);
 void printneighbors(short adjmat[NUM_NODES][NUM_NODES], short n);
 short countneighbors(short adjmat[NUM_NODES][NUM_NODES], short n);
@@ -30,12 +32,14 @@ int main() {
     short longest = -1;
     short startnode = 1;
     
-    findpath(adjmat, visited, startnode, stack, &topIndex, &longest, MAX_REPEATS, startnode, pruned);
+    findpath(adjmat, visited, startnode, stack, &topIndex, &longest, MAX_REPEATS, startnode);
 
     return 0;
 }
 
-void findpath(short adjmat[NUM_NODES][NUM_NODES], short visited[NUM_NODES][NUM_NODES], short n, short stack[], short *top, short *longest, short repeats,  short previous, short pruned[]) {
+void findpath(short adjmat[NUM_NODES][NUM_NODES], 
+              short visited[NUM_NODES][NUM_NODES], 
+              short n, short stack[], short *top, short *longest, short repeats,  short previous) {
     push(stack, top, n);
     if (*top > *longest) {
         *longest = *top;
@@ -43,14 +47,13 @@ void findpath(short adjmat[NUM_NODES][NUM_NODES], short visited[NUM_NODES][NUM_N
         printstack(stack, *top);
     }
     for (short x = 0; x < NUM_NODES; x++) {
-        if (adjmat[n][x] && (!(visited[n][x] && visited[x][n]) || repeats > 0 && countneighbors(adjmat, n) % 2 != 0) && x != previous && pruned[x]) {
+        if (adjmat[n][x] && (!(visited[n][x] && visited[x][n]) || repeats > 0 && countneighbors(adjmat, n) % 2 != 0) && x != previous) {
             if (visited[n][x] && visited[x][n]) repeats--;
             visited[x][n] = visited[n][x] = 1;
-            findpath(adjmat, visited, x, stack, top, longest, repeats, n, pruned);
+            findpath(adjmat, visited, x, stack, top, longest, repeats, n);
             visited[x][n] = visited[n][x] = 0;
         }
     }
-    pruned[n] = 1;
     repeats = MAX_REPEATS;
     pop(top);
 }
