@@ -9,8 +9,6 @@
 void findpath(short adjmat[NUM_NODES][NUM_NODES], 
               short visited[NUM_NODES][NUM_NODES], 
               short n, short stack[], short *top, short *longest, short repeats, short previous);
-short compare(short a[NUM_NODES][NUM_NODES], short b[NUM_NODES][NUM_NODES]);
-void printneighbors(short adjmat[NUM_NODES][NUM_NODES], short n);
 short countneighbors(short adjmat[NUM_NODES][NUM_NODES], short n);
 void readin(char *filepath, short adjmat[NUM_NODES][NUM_NODES]);
 void printmat(short adjmat[NUM_NODES][NUM_NODES]);
@@ -130,27 +128,10 @@ void push(short stack[], short *top, short value) {
         stack[++(*top)] = value;
 }
 
-void printneighbors(short adjmat[NUM_NODES][NUM_NODES], short n) {
-    for (short x = 0; x < NUM_NODES; x++)
-        if (adjmat[n][x])
-            printf("%d ", x);
-    printf("\n");
-}
-
 short countneighbors(short adjmat[NUM_NODES][NUM_NODES], short n) {
     int count = 0;
     for (short x = 0; x < NUM_NODES; x++)
         if (adjmat[n][x])
             count++;
     return count;
-}
-
-short compare(short a[NUM_NODES][NUM_NODES], short b[NUM_NODES][NUM_NODES]) {
-    for (short x = 0; x < NUM_NODES; x++) {
-        for (short y = 0; y < NUM_NODES; y++) {
-            if (a[x][y] != b[x][y])
-                return 0;
-        }
-    }
-    return 1;
 }
