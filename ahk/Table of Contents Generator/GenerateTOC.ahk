@@ -2,15 +2,16 @@
 #SingleInstance Force
 
 root := FileSelect("D")
-readme := "-----------`n### Table of Contents`n`n"
+readme := "-----------`n### Table of Contents`n"
 folders := []
 
 Loop Files, root "\*.*", "R" {
     folder := SubStr(A_LoopFileDir, InStr(A_LoopFileDir, "\",,,-1)+1)
     if (InStr(A_LoopFileDir, "\."))
         continue
-    if (!has(folders, folder))
-        msgbox folder
+    if (!has(folders, folder)) {
+        readme .= "`n[" folder "](" A_LoopFileDir ")`n" 
+    }
     
     folders.Push(folder)
     
@@ -18,6 +19,8 @@ Loop Files, root "\*.*", "R" {
 
 FileAppend readme, "TOC.md"
 Return
+
+
 
 has(haystack, needle) {
     if (!isObject(haystack))
