@@ -4,17 +4,16 @@
 root := FileSelect("D")
 readme := "-----------`n### Table of Contents`n"
 folders := []
+bullets := ["","*","-"]
 
 Loop Files, root "\*.*", "R" {
-    folder := SubStr(A_LoopFileDir, InStr(A_LoopFileDir, "\",,,-1)+1)
-    if (has(folders, folder))
+    folder := getname(A_LoopFileDir)
+    if (has(folders, folder) || InStr(A_LoopFileDir, "\."))
         continue
-    if (InStr(A_LoopFileDir, "\."))
-        continue
-    
+
+    distance := getdistance(A_LoopFileDir, root)
     readme .= "`n[" folder "](" A_LoopFileDir ")`n" 
     folders.Push(folder)
-    
 }
 
 FileAppend readme, "TOC.md"
@@ -31,4 +30,18 @@ has(haystack, needle) {
         if (v == needle)
             return true
     return false
+}
+
+getname(path) {
+    return SubStr(path, InStr(path, "\",,,-1)+1)
+}
+
+getdistance(path, root) {
+    count := 0
+    fromroot := SubStr(path, StrLen(root)+1)
+    Loop parse, fromroot, "\"
+        count++
+    msgbox fromroot "`n" count
+
+    return 
 }
