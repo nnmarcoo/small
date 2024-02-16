@@ -7,12 +7,12 @@ folders := []
 
 Loop Files, root "\*.*", "R" {
     folder := SubStr(A_LoopFileDir, InStr(A_LoopFileDir, "\",,,-1)+1)
+    if (has(folders, folder))
+        continue
     if (InStr(A_LoopFileDir, "\."))
         continue
-    if (!has(folders, folder)) {
-        readme .= "`n[" folder "](" A_LoopFileDir ")`n" 
-    }
     
+    readme .= "`n[" folder "](" A_LoopFileDir ")`n" 
     folders.Push(folder)
     
 }
