@@ -41,7 +41,5 @@ getdistance(path, root) {
     fromroot := SubStr(path, StrLen(root)+1)
     Loop parse, fromroot, "\"
         count++
-    msgbox fromroot "`n" count
-
-    return 
+    return count-1 
 }
