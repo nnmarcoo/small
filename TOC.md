@@ -3,18 +3,18 @@
 
 [small]()
 
-[Emoji Discord Downloader](ahk\Emoji Discord Downloader)
+[Emoji Discord Downloader](ahk\Emoji%20Discord%20Downloader)
 
-[Game Tracker](ahk\Game Tracker)
+[Game Tracker](ahk\Game%20Tracker)
 
-[LC-3 Convert](ahk\LC-3 Convert)
+[LC-3 Convert](ahk\LC-3%20Convert)
 
 [Pushups](ahk\Pushups)
 
-[Simulate CS Drops](ahk\Simulate CS Drops)
+[Simulate CS Drops](ahk\Simulate%20CS%20Drops)
 
-[Skip Spotify Ad](ahk\Skip Spotify Ad)
+[Skip Spotify Ad](ahk\Skip%20Spotify%20Ad)
 
-[Table of Contents Generator](ahk\Table of Contents Generator)
+[Table of Contents Generator](ahk\Table%20of%20Contents%20Generator)
 
-[Longest Path](c\Longest Path)
+[Longest Path](c\Longest%20Path)

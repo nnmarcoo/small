@@ -12,7 +12,7 @@ Loop Files, root "\*.*", "R" {
         continue
 
     distance := getdistance(A_LoopFileDir, root)
-    readme .= "`n[" folder "](" SubStr(A_LoopFileDir, StrLen(root)+2) ")`n" 
+    readme .= "`n[" folder "](" StrReplace(SubStr(A_LoopFileDir, StrLen(root)+2), " ", "%20") ")`n" 
     folders.Push(folder)
 }
 
