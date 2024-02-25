@@ -10,8 +10,7 @@ Loop Files, root "\*.*", "R" {
     folder := getname(A_LoopFileDir)
     if (has(folders, folder) || InStr(A_LoopFileDir, "\."))
         continue
-
-    distance := getdistance(A_LoopFileDir, root)
+        
     readme .= "`n[" folder "](" StrReplace(SubStr(A_LoopFileDir, StrLen(root)+2), " ", "%20") ")`n" 
     folders.Push(folder)
 }
@@ -34,12 +33,4 @@ has(haystack, needle) {
 
 getname(path) {
     return SubStr(path, InStr(path, "\",,,-1)+1)
-}
-
-getdistance(path, root) {
-    count := 0
-    fromroot := SubStr(path, StrLen(root)+1)
-    Loop parse, fromroot, "\"
-        count++
-    return count-1 
 }
