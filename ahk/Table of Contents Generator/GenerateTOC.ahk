@@ -1,4 +1,7 @@
-﻿#Requires AutoHotkey v2.0
+﻿
+; very unfinished
+
+#Requires AutoHotkey v2.0
 #SingleInstance Force
 
 root := FileSelect("D")
