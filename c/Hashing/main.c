@@ -8,7 +8,7 @@ inline unsigned int padlength(const char* str) { return ((strlen(str)*8 + 512 - 
 
 int main(void) {
     
-    printf("%d\n", md5("abvdwadwad"));
+    printf("%d\n", md5("helloworld"));
     
     return 0;
 }
