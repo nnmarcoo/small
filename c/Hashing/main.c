@@ -4,7 +4,7 @@
 #include <math.h>
 
 unsigned int md5(const char* str);
-inline unsigned int padlength(const char* str) { return ((strlen(str) * 8 + 8 + 511) / 512) * 512; } // This is wrong
+inline unsigned int padlength(const char* str) { return ((strlen(str)*8 + 8 + 64 + 511) / 512) * 512; }
 
 int main(void) {
     
@@ -15,6 +15,12 @@ int main(void) {
 
 unsigned int md5(const char* str) {
     unsigned int length = padlength(str);
-    return length;
+    unsigned int zeros = length - strlen(str) - 1;
+    char* paddedstr = (char*)malloc(length);
+    strcpy(paddedstr, str);
+    strcat(paddedstr, "1");
+    
+    //printf("%s\n", paddedstr);
+    return strlen(paddedstr);
 }
 
