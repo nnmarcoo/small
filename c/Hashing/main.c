@@ -4,7 +4,7 @@
 #include <math.h>
 
 unsigned int md5(const char* str);
-inline unsigned int padlength(const char* str) { return ((strlen(str)*8 + 512 - 1) / 512) * 512; }
+inline unsigned int padlength(const char* str) { return ((strlen(str) * 8 + 8 + 511) / 512) * 512; } // This is wrong
 
 int main(void) {
     
