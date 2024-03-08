@@ -4,7 +4,7 @@
 #include <math.h>
 
 unsigned int md5(const char* str);
-inline unsigned int padlength(const char* str) { return ((strlen(str)*8 + 8 + 64 + 511) / 512) * 512; }
+inline unsigned int padlength(unsigned int length) { return ((length*8 + 8 + 64 + 511) / 512) * 512; }
 
 int main(void) {
     
@@ -13,10 +13,15 @@ int main(void) {
 }
 
 unsigned int md5(const char* str) {
-    unsigned int length = padlength(str);
-    char* paddedstr = (char*)malloc(length + 1);
-    memset(paddedstr, '0', length);
-    paddedstr[length] = '\0';        // Is this necessary?
+    unsigned int strlength = strlen(str);
+    unsigned int blocklength = padlength(strlength);
+    char* paddedstr = (char*)malloc(blocklength + 1);
+
+    strcpy(paddedstr, str);
+    paddedstr[strlength] = '1';
+    memset(paddedstr + strlength+1, '0', blocklength - strlength-1); 
+    paddedstr[blocklength] = '\0';  // Is this necessary?
+
     printf("%s\n", paddedstr);
     free(paddedstr);
     return 0;
