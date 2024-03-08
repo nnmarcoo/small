@@ -3,8 +3,8 @@
 #include <string.h>
 #include <math.h>
 
+inline unsigned int padlength(unsigned int length) { return (((length*8 + 8 + 64 + 512 - 1) / 512) * 512) / 8; }
 unsigned int md5(const char* str);
-inline unsigned int padlength(unsigned int length) { return (((length*8 + 8 + 64 + 511) / 512) * 512) / 8; }
 
 int main(void) {
     
