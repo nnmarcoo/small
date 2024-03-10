@@ -3,8 +3,9 @@
 #include <string.h>
 #include <math.h>
 
-inline unsigned int padlength(unsigned int length) { return (((length*8 + 8 + 64 + 512 - 1) / 512) * 512) / 8; }
+unsigned int padlength(unsigned int length) { return (((length*8 + 8 + 64 + 512 - 1) / 512) * 512) / 8; }
 unsigned int md5(const char* str);
+void print(char* str, unsigned int len);
 
 int main(void) {
     
@@ -15,15 +16,26 @@ int main(void) {
 unsigned int md5(const char* str) {
     unsigned int strlength = strlen(str);
     unsigned int blocklength = padlength(strlength);
-    char* paddedstr = (char*)malloc(blocklength + 1);
+    char* paddedstr = (char*)malloc(blocklength);
 
     strcpy(paddedstr, str);
-    paddedstr[strlength] = '1';
-    memset(paddedstr + strlength+1, '0', blocklength - strlength-1); 
-    paddedstr[blocklength] = '\0';  // Is this necessary?
+    paddedstr[strlength] = 0x80;
+    memset(paddedstr + strlength+1, 0, blocklength - strlength-1); 
+    
+    print(paddedstr, blocklength);
 
-    printf("%s\n", paddedstr);
     free(paddedstr);
     return 0;
 }
 
+void print(char *str, unsigned int len) {
+    for (unsigned int i = 0; i < len; i++) {
+        if (str[i] == 0)
+            printf("0");
+        else if (str[i] == 0x80)
+            printf("1");
+        else
+            printf("%c", str[i]);
+    }
+    printf("\n");
+}
