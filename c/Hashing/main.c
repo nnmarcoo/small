@@ -20,7 +20,7 @@ unsigned int md5(unsigned char* str) {
 
 
     strcpy(paddedstr, str);
-    paddedstr[strlength] = 0x80;
+    paddedstr[strlength] = 128;
     memset(paddedstr + strlength+1, 0, blocklength - strlength-1); 
     
     print(paddedstr, blocklength);
@@ -31,7 +31,7 @@ unsigned int md5(unsigned char* str) {
 
 void print(unsigned char *str, unsigned int len) {
     for (unsigned int i = 0; i < len; i++) {
-        if (str[i] == 0x80)
+        if (str[i] == 128)
             printf("1");
         else if (str[i] == 0)
             printf("0");
