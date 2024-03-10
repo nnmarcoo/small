@@ -8,20 +8,23 @@ unsigned int md5(unsigned char* str);
 void print(unsigned char* str, unsigned int len);
 
 int main(void) {
-    
     md5("helloworld"); 
     return 0;
 }
 
 unsigned int md5(unsigned char* str) {
+    unsigned int a = 0x67452301;
+    unsigned int b = 0xefcdab89;
+    unsigned int c = 0x98badcfe;
+    unsigned int d = 0x10325476; 
+    
     unsigned int strlength = strlen(str);
     unsigned int blocklength = padlength(strlength);
     unsigned char* paddedstr = (unsigned char*)malloc(blocklength);
-
-
     strcpy(paddedstr, str);
     paddedstr[strlength] = 128;
-    memset(paddedstr + strlength+1, 0, blocklength - strlength-1); 
+    memset(paddedstr + strlength+1, 0, blocklength - strlength-1);
+
     
     print(paddedstr, blocklength);
 
