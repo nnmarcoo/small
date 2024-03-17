@@ -34,9 +34,9 @@ unsigned int md5(unsigned char* str) {
     paddedstr[strlength] = 128;
     memset(paddedstr + strlength+1, 0, blocklength - strlength-1);
 
+
     
     print(paddedstr, blocklength);
-
     free(paddedstr);
     return 0;
 }

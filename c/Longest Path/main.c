@@ -4,7 +4,8 @@
 
 #define NUM_NODES 69
 #define STACK_SIZE 110
-#define MAX_REPEATS 0
+#define MAX_REPEATS 5
+#define START_REPEATS_AT 25
 
 void findpath(short adjmat[NUM_NODES][NUM_NODES], 
               short visited[NUM_NODES][NUM_NODES], 
@@ -45,7 +46,7 @@ void findpath(short adjmat[NUM_NODES][NUM_NODES],
         printstack(stack, *top);
     }
     for (short x = 0; x < NUM_NODES; x++) {
-        if (adjmat[n][x] && (!(visited[n][x] && visited[x][n]) || repeats > 0 && countneighbors(adjmat, n) % 2 != 0) && x != previous) {
+        if (adjmat[n][x] && (!(visited[n][x] && visited[x][n]) || repeats > 0 && countneighbors(adjmat, n) % 2 != 0 && n > START_REPEATS_AT) && x != previous) {
             if (visited[n][x] && visited[x][n]) repeats--;
             visited[x][n] = visited[n][x] = 1;
             findpath(adjmat, visited, x, stack, top, longest, repeats, n);
